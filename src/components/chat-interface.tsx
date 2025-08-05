@@ -84,7 +84,7 @@ export function ChatInterface({ messages, onSendMessage, isLoading }: ChatInterf
                 )}
               </div>
             ))}
-            {isLoading && !deleteConfirmation && (
+            {isLoading && (
               <div className="flex items-end gap-2 justify-start">
                  <Avatar className="h-8 w-8">
                     <AvatarFallback className="bg-primary text-primary-foreground">

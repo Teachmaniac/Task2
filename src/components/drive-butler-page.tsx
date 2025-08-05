@@ -13,10 +13,13 @@ type DeleteConfirmationState = {
     path: string;
 } | null;
 
+let messageIdCounter = 0;
+const getUniqueMessageId = () => `msg-${Date.now()}-${messageIdCounter++}`;
+
 export function DriveButlerPage() {
     const [files, setFiles] = useState<DriveFile[]>(initialFiles);
     const [messages, setMessages] = useState<Message[]>([
-        { id: '1', sender: 'butler', content: 'Welcome to Drive Butler! How can I help you? You can use commands like LIST, MOVE, DELETE, and SUMMARY.' }
+        { id: getUniqueMessageId(), sender: 'butler', content: 'Welcome to Drive Butler! How can I help you? You can use commands like LIST, MOVE, DELETE, and SUMMARY.' }
     ]);
     const [logs, setLogs] = useState<ActionLogItem[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +27,7 @@ export function DriveButlerPage() {
     const { toast } = useToast();
 
     const addMessage = (sender: 'user' | 'butler', content: React.ReactNode) => {
-        setMessages(prev => [...prev, { id: Date.now().toString(), sender, content }]);
+        setMessages(prev => [...prev, { id: getUniqueMessageId(), sender, content }]);
     };
 
     const addLog = (action: string) => {
